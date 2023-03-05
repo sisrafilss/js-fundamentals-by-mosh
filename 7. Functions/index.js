@@ -144,7 +144,137 @@ start();
 /* ================================================================= */
 // 7.9- Let vs Var
 
+/*
+// ES6 (ES2015): let, const => block scoped
+// function start() {
+//     for (let i = 0; i < 5; i++) {
+//         console.log(i);
+//     }
+//     console.log(i); // create uncought problem
+// }
+// start();
+
+// var => function scoped
+// function start() {
+//     for (var i = 0; i < 5; i++) {
+//         console.log(i);
+//     }
+//     console.log(i); // execute currectly
+// }
+// start();
+
+// var => function scoped
+
+// variable declared using var keyword, attach the variable in window object.
+var color = 'red';
+console.log(window.color); // red
+
+// but 
+let clr = 'green';
+console.log(window.clr); // undefined
+*/
 
 
 /* ======================================================================== */
 // 7.10- The This Keyword
+
+// method -> obj
+// const Video = {
+//     title: 'a',
+//     play() {
+//         console.log(this);
+//     }
+// }
+
+// Video.stop = function() {
+//     console.log(this);
+// }
+
+// Video.stop();
+
+// function -> global (window, global)
+// function Video(title) {
+//     this.title = title;
+//     console.log(this);
+// }
+
+// const v = new Video('b');
+
+// const Video = {
+//     title: 'a',
+//     tags: ['a', 'b', 'c'],
+//     showTags() {
+//         this.tags.forEach(function(tag) {
+//             console.log(this.title, tag);
+//         }, this);
+//     }
+// }
+
+// Video.showTags();
+
+
+/* ==================================================================== */
+// 7.11- Changing This
+
+// const Video = {
+//     title: 'a',
+//     tags: ['a', 'b', 'c'],
+//     showTags() {
+//         const self = this;
+//         this.tags.forEach(function(tag) {
+//             console.log(self.title, tag);
+//         });
+
+//     }
+// }
+
+// Video.showTags();
+
+// function playVideo(a, b) {
+//     console.log(a, b);
+//     console.log(this);
+// }
+
+// playVideo.call({name: 'Israfil'}, 1, 2);
+// playVideo.apply({name: 'Rakib'}, [1, 2]);
+// playVideo.bind({name: 'Hasan'})();
+
+// 2nd solution
+// const Video = {
+//     title: 'a',
+//     tags: ['a', 'b', 'c'],
+//     showTags() {
+//         this.tags.forEach(function(tag) {
+//             console.log(this.title, tag);
+//         }.bind(this));
+
+//     }
+// }
+// Video.showTags();
+
+// 3rd solution
+// const Video = {
+//     title: 'a',
+//     tags: ['a', 'b', 'c'],
+//     showTags() {
+//         this.tags.forEach(tag => {
+//             console.log(this.title, tag);
+//         });
+
+//     }
+// }
+// Video.showTags();
+
+/* =================================================================== */
+// 7.12- Exercise 1- Sum of Arguments
+
+function sum(nums) {
+    if (Array.isArray(nums)) {
+        return nums.reduce((total, num) => total + num, 0)
+    }
+    else {
+        console.log(arguments);
+    }
+}
+
+console.log(sum(1, 2, 3, 4));
